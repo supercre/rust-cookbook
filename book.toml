@@ -1,0 +1,6 @@
+[book]
+authors = ["silverjun-sc <silverjun@supercreative.kr>"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Rust Cookbook"
