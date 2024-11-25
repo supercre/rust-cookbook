@@ -11,7 +11,7 @@
 - [Programming a Guessing Game]()
 - [Common Programming Concepts]()
     - [Variables and Mutability]()
-    - [Data Types]()
+    - [Data Types](Data_Types.md)
     - [Functions]()
     - [Comments]()
     - [Control Flow]()
