@@ -633,8 +633,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 파일명: src/main.rs
 
-``` console
-
+``` rust
         // --생략--
 
         io::stdin()
