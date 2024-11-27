@@ -8,7 +8,7 @@
     - [설치](Installation.md)
     - [Hello, World!](Hello_world.md)
     - [Hello, Cargo!](Hello_cargo.md)
-- [Programming a Guessing Game]()
+- [Programming a Guessing Game](Guessing_game.md)
 - [Common Programming Concepts]()
     - [Variables and Mutability]()
     - [Data Types](Data_Types.md)
