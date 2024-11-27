@@ -12,7 +12,7 @@
 - [Common Programming Concepts]()
     - [Variables and Mutability]()
     - [Data Types](Data_Types.md)
-    - [Functions]()
+    - [Functions](Functions.md)
     - [Comments]()
     - [Control Flow]()
 - [Understanding Ownership](Understanding_ownership.md)
