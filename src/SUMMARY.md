@@ -13,7 +13,7 @@
     - [Variables and Mutability]()
     - [Data Types](Data_Types.md)
     - [Functions](Functions.md)
-    - [Comments]()
+    - [Comments](Comments.md)
     - [Control Flow]()
 - [Understanding Ownership](Understanding_ownership.md)
     - [What is Ownership?](What_is_ownership.md)
