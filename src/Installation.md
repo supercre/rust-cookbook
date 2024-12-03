@@ -47,7 +47,7 @@ The rest of this book uses commands that work in both _cmd.exe_ and PowerShell. 
 
 ### [Troubleshooting](#troubleshooting)
 
-To check whether you have Rust installed correctly, open a shell and enter this line:
+Rust가 올바르게 설치되었는지 확인하려면 셸을 열고 다음 줄을 입력하십시오.
 
 ```
 $ rustc --version
@@ -55,17 +55,16 @@ $ rustc --version
 ```
 
 
-You should see the version number, commit hash, and commit date for the latest stable version that has been released, in the following format:
+릴리스된 최신 안정 버전의 버전 번호, 커밋 해시 및 커밋 날짜가 다음 형식으로 표시되어야 합니다.
 
 ```
 rustc x.y.z (abcabcabc yyyy-mm-dd)
 
 ```
 
+이 정보가 표시되면 Rust를 성공적으로 설치한 것입니다! 이 정보가 표시되지 않으면 다음과 같이 시스템 `%PATH%` 변수에 Rust 의 경로가 있는지 확인하십시오
 
-If you see this information, you have installed Rust successfully! If you don’t see this information, check that Rust is in your `%PATH%` system variable as follows.
-
-In Windows CMD, use:
+윈도우의 cmd 경우 
 
 ```
 > echo %PATH%
@@ -73,7 +72,7 @@ In Windows CMD, use:
 ```
 
 
-In PowerShell, use:
+파워셸의 경우 
 
 ```
 > echo $env:Path
@@ -81,7 +80,7 @@ In PowerShell, use:
 ```
 
 
-In Linux and macOS, use:
+리눅스 또는 MacOS의 경우
 
 ```
 $ echo $PATH
@@ -89,11 +88,11 @@ $ echo $PATH
 ```
 
 
-If that’s all correct and Rust still isn’t working, there are a number of places you can get help. Find out how to get in touch with other Rustaceans (a silly nickname we call ourselves) on [the community page](https://www.rust-lang.org/community).
+만약 문제가 해결되지 않는경우 다음의 커뮤니티를 참고 해보세요. [the community page](https://www.rust-lang.org/community).
 
-### [Updating and Uninstalling](#updating-and-uninstalling)
+### [업데이트 및 언인스톨](#updating-and-uninstalling)
 
-Once Rust is installed via `rustup`, updating to a newly released version is easy. From your shell, run the following update script:
+`rustup`를 통해 Rust를 설치 하면 쉽게 최신 버전으로 업데이할 수 있습니다. 셸에서 다음 업데이트 명령을 실행합니다.:
 
 ```
 $ rustup update
@@ -101,19 +100,25 @@ $ rustup update
 ```
 
 
-To uninstall Rust and `rustup`, run the following uninstall script from your shell:
+Rust를 언인스톨 할때도 `rustup` 를 실행하여 언인스톨 합니다. 다음과 같이 명령을 실행합니다. :
 
 ```
 $ rustup self uninstall
 
 ```
 
+### [로컬 문서](#local-documentation)
 
-### [Local Documentation](#local-documentation)
+Rust설치에는 오프라인에서 참고할수 있도록 문서의 로컬 복사본도 포함되어 있습니다. `rustup doc` 을 명령줄에서 실행 하면 웹브라우저에 로컬 문서가 열립니다. 
 
-The installation of Rust also includes a local copy of the documentation so that you can read it offline. Run `rustup doc` to open the local documentation in your browser.
 
-Any time a type or function is provided by the standard library and you’re not sure what it does or how to use it, use the application programming interface (API) documentation to find out!
+
+```
+$ rustup doc
+
+```
+
+표준 라이브러리에서 유형이나 함수를 제공하는데 어떤 기능을 하는지, 어떻게 사용하는지 확실하지 않은 경우 API(Application Programming Interface) 문서를 사용하여 알아보세요!
 
 [](https://doc.rust-lang.org/book/ch01-00-getting-started.html "Previous chapter")[](https://doc.rust-lang.org/book/ch01-02-hello-world.html "Next chapter")
 
