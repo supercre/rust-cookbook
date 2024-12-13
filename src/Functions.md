@@ -4,7 +4,7 @@
 
 Rust 코드는 함수 및 변수 이름에 모든 문자가 소문자이고 개별 단어에 밑줄을 긋는 _snake case_ 를 사용합니다. 아래는 함수 정의 예제가 포함된 프로그램입니다.
 
-```rust
+```rust,editable
 fn main() {
     println!("Hello, world!");
 
@@ -38,7 +38,7 @@ Another function.
 함수의 시그니처의 일부인 특수 변수인 _매개변수_ 를 갖도록 함수를 정의할 수 있습니다. 함수에 매개변수가 있는 경우 해당 매개변수에 대한 구체적인 값을 제공할 수 있습니다. 기술적으로는 구체적인 값을 _인자_ 라고 하지만, 일상적인 대화에서 사람들은 함수의 정의에 있는 변수나 함수를 호출할 때 전달되는 구체적인 값에 대해 매개변수와 인자를 혼용해서 사용하는 경향이 있습니다.
 
 이 `another_function` 버전에서는 매개변수를 추가합니다:
-```rust
+```rust,editable
 fn main() {
     another_function(5);
 }
@@ -64,7 +64,7 @@ The value of x is: 5
 
 여러 개의 매개변수를 정의할 때는 다음과 같이 쉼표로 매개변수 선언을 구분합니다:
 
-```rust
+```rust,editable
 fn main() {
     print_labeled_measurement(5, 'h');
 }
@@ -96,7 +96,7 @@ The measurement is: 5h
 
 사실 우리는 이미 문과 표현식을 사용했습니다. `let` 키워드를 사용하여 변수를 생성하고 값을 할당하는 것은 문입니다. 목록 3-1에서 `let y = 6;` 은 문입니다.
 
-```rust
+```rust,editable
 fn main() {
     let y = 6;
 }
@@ -108,7 +108,7 @@ fn main() {
 
 문은 값을 반환하지 않습니다. 따라서 다음 코드에서 시도하는 것처럼 `let` 문을 다른 변수에 할당할 수 없으며 오류가 발생합니다:
 
-```rust
+```rust,editable
 fn main() {
     let x = (let y = 6);
 }
@@ -147,7 +147,7 @@ error: could not compile `functions` (bin "functions") due to 1 previous error; 
 
 표현식은 값으로 평가되며 Rust에서 작성하게 될 나머지 코드의 대부분을 구성합니다. `5 + 6`과 같이 `11`이라는 값으로 평가되는 표현식인 수학 연산을 생각해 봅시다. 표현식은 문의 일부가 될 수 있습니다. 목록 3-1에서 `let y = 6;` 문의 `6`은 `6`이라는 값으로 평가되는 표현식입니다. 함수 호출은 표현식입니다. 매크로를 호출하는 것도 표현식입니다. 예를 들어 중괄호로 묶은 새 범위 블록은 표현식입니다:
 
-```rust
+```rust,editable
 fn main() {
     let y = {
         let x = 3;
@@ -158,7 +158,7 @@ fn main() {
 }
 ```
 이 표현식
-```rust
+```rust,editable
 {
     let x = 3;
     x + 1
@@ -170,7 +170,7 @@ fn main() {
 
 함수는 함수를 호출하는 코드에 값을 반환할 수 있습니다. 반환 값의 이름은 지정하지 않지만 화살표(`->`) 뒤에 반환 값의 유형을 선언해야 합니다. Rust에서 함수의 반환 값은 함수 본문의 블록에 있는 마지막 표현식의 값과 동의어입니다. 반환 키워드를 사용하고 값을 지정하여 함수에서 조기에 반환할 수 있지만 대부분의 함수는 암시적으로 마지막 표현식을 반환합니다. 다음은 값을 반환하는 함수의 예시입니다:
 
-```rust
+```rust,editable
 fn five() -> i32 {
     5
 }
@@ -184,7 +184,7 @@ fn main() {
 
 `five` 함수에는 함수 호출, 매크로, 심지어 `let` 문도 없습니다. 이는 Rust에서 완벽하게 유효한 함수입니다. 함수의 반환 유형도 `-> i32`로 지정되어 있다는 점에 유의하세요. 이 코드를 실행해 보세요. 출력은 다음과 같을 것입니다:
 
-```rust
+```rust,editable
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.30s
@@ -193,7 +193,7 @@ The value of x is: 5
 ```
 
 `five`함수에서 `5`는 함수의 반환 값이므로 반환 유형이 `i32`인 이유입니다. 이를 좀 더 자세히 살펴보겠습니다. 먼저, `let x = five();` 줄은 함수의 반환값을 사용하여 변수를 초기화한다는 것을 보여줍니다. 함수 `five`는 `5`를 반환하므로 이 줄은 다음과 동일합니다:
-```rust
+```rust,editable
 let x = 5;
 ```
 
@@ -201,7 +201,7 @@ let x = 5;
 
 다른 예를 살펴보겠습니다:
 
-```rust
+```rust,editable
 fn main() {
     let x = plus_one(5);
 
@@ -215,7 +215,7 @@ fn plus_one(x: i32) -> i32 {
 
 이 코드를 실행하면 이와 같이 출력됩니다: `The value of x is: 6` 그러나 `x + 1`이 포함된 줄 끝에 세미콜론을 배치하여 표현식에서 문으로 변경하면 오류가 발생합니다:
 
-```rust
+```rust,editable
 fn main() {
     let x = plus_one(5);
 

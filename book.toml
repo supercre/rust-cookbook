@@ -4,3 +4,10 @@ language = "en"
 multilingual = false
 src = "src"
 title = "Rust Cookbook"
+
+[output.html]
+mathjax-support = true
+
+[output.html.playground]
+editable = true
+line-numbers = true

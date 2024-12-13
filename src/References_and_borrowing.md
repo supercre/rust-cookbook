@@ -12,7 +12,7 @@
   <p>
     <span>파일명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
       let s1 = String::from("hello");
       let len = calculate_length(&amp;s1);
@@ -45,7 +45,7 @@
   <p>
     여기서 함수 호출을 좀 더 자세히 살펴보겠습니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
       let s1 = String::from("hello");
       let len = calculate_length(&amp;s1);
@@ -61,7 +61,7 @@
   <p>
     마찬가지로, 함수의 시그니처에서 사용하는 <code>&amp;</code>는 매개변수 <code>s</code>의 타입이 참조임을 나타냅니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
       let s1 = String::from("hello");
       let len = calculate_length(&amp;s1);
@@ -85,7 +85,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let s = String::from("hello");
         change(&amp;s);
@@ -132,7 +132,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let mut s = String::from("hello");
         change(&amp;mut s);
@@ -151,7 +151,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let mut s = String::from("hello");
         let r1 = &amp;mut s;
@@ -205,7 +205,7 @@
   <p>
     항상 그렇듯이, 중괄호를 사용하여 새로운 범위를 만들면 여러 가변 참조를 사용할 수 있습니다. <strong>단, 동시에 사용할 수는 없습니다.</strong>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let mut s = String::from("hello");
         {
@@ -218,7 +218,7 @@
     Rust는 가변 참조와 불변 참조를 동시에 사용하는 것을 방지하는 규칙을 적용합니다.</br>
     아래의 코드를 통해 이를 알아봅시다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let mut s = String::from("hello");
         let r1 = &amp;s; // 문제 없음
@@ -258,7 +258,7 @@
     참조의 범위는 참조가 도입되는 지점부터 그 참조가 마지막으로 사용되는 지점까지 이어집니다.</br>
     예를 들어, 아래 코드는 정상적으로 실행되는데, 불변 참조의 마지막 사용인 <code>println!</code> 코드가 가변 참조가 도입되기 전 사용되기 때문입니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let mut s = String::from("hello");
         let r1 = &amp;s; // 문제 발생 X
@@ -291,7 +291,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let reference_to_nothing = dangle();
     }
@@ -344,7 +344,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let reference_to_nothing = dangle();
     }
@@ -362,7 +362,7 @@
   <p>
     여기서 해결책은 <code>String</code>을 직접 반환하는 것입니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let string = no_dangle();
     }

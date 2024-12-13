@@ -43,7 +43,7 @@ Windows CMD 사용자는 다음 명령어를 입력해 주세요:
 
 파일명: main.rs
 
-``` rust
+``` rust,editable
 fn main() {
   println!("Hello, world!");
 }
@@ -75,7 +75,7 @@ Hello, world!
 
 방금 만든 ‘Hello, world!’ 프로그램을 자세히 살펴봅시다. 우선 첫 부분은 다음과 같습니다:
 
-``` rust
+``` rust,editable
 fn main() {
 
 }
@@ -88,7 +88,7 @@ fn main() {
 > Note: 여러분이 러스트 프로젝트의 코드를 표준 스타일로 통일시키고 싶다면, 코드를 특정 스타일로 포맷팅해주는 `rustfmt`라는 이름의 자동 포맷팅 도구를 사용할 수 있습니다 (더 자세한 사항은 [부록 D](https://doc.rust-kr.org/appendix-04-useful-development-tools.html)에 있습니다.) 러스트 팀은 이 도구를 `rustc`처럼 기본 러스트 배포에 포함시켰으므로, 이미 여러분의 컴퓨터에 설치되어 있습니다!
 
 `main` 함수 내 코드를 살펴봅시다.
-``` rust
+``` rust,editable
     println!("Hello, world!");
 ```    
 화면에 텍스트를 출력하는 코드로, 이 한 라인이 이 자그마한 프로그램의 전부입니다. 하지만 이 단순한 코드에도 눈여겨볼 것이 네 가지 들어있습니다.

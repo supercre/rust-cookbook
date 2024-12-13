@@ -59,7 +59,7 @@ edition = "2021"
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
 fn main() {
     println!("Hello, world!");
 }

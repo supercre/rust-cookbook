@@ -121,7 +121,7 @@
     변수 범위란 프로그램 내에서 변수가 유효한 범위를 나타냅니다. 다음 예시들을 통해 변수 범위에 대해 알아봅시다.
   </p>
   <p>
-    <code class="language-rust edition2021">
+    <code class="language-rust edition2021 editable">
       let s = "hello";
     </code>
   </p>
@@ -131,7 +131,7 @@
     예제 4-1에서는 변수 <code>s</code>가 유효한 위치를 주석으로 표시하여 변수 범위를 표현합니다.
   </p>
   <p>
-    <code class="language-rust edition2021">
+    <code class="language-rust edition2021 editable">
       {                      // 변수 s는 아직 정의되지 않았기에 유효하지 않습니다.
         let s = "hello";     // 변수 s는 이 시점부터 유효합니다.
                              // 변수 s와 함께 작업을 진행합니다.
@@ -181,7 +181,7 @@
     이러한 상황을 위해 Rust에는 두 번째 문자열 타입인 <code>String</code> 타입이 있습니다! 이 타입은 힙에 할당된 데이터를 관리하며, 컴파일 타임에 우리가 알 수 없는 크기의 텍스트를 저장할 수 있습니다. 문자열 리터럴에서 <code>String</code>을 생성하려면 <code>from</code> 함수를 사용하면 됩니다.
   </p>
   <p>
-    <code class="language-rust edition2021">
+    <code class="language-rust edition2021 editable">
       fn main() {
         let s = String::from("hello");
       }
@@ -197,7 +197,7 @@
     아래 예제에선 <string>변경</string>이 가능한 문자열 예시를 볼 수 있습니다.
   </p>
   <p>
-    <code class="language-rust edition2021">
+    <code class="language-rust edition2021 editable">
       fn main() {
         let mut s = String::from("hello");
         s.push_str(", world!"); // push_str() 문자열 리터럴을 String에 추가합니다.
@@ -245,7 +245,7 @@
     Rust는 이 문제에 대해 다른 방식으로 접근합니다. 메모리는 변수를 소유한 값이 범위를 벗어날 경우 자동으로 반환됩니다. 여기 <code>String</code>을 사용한 예제의 범위 예시를 다시 보여드리겠습니다.
   </p>
   <p>
-    <code class="language-rust edition2021">
+    <code class="language-rust edition2021 editable">
       fn main(){
         let s = String::from("hello");  // 변수 s는 이 시점부터 유효합니다.
                                         // 변수 s를 활용하여 몇몇 작업을 진행합니다.
@@ -272,7 +272,7 @@
   <p>
     Rust에서 변수와 데이터가 상호작용하는 방식에는 여러 가지가 있습니다. Listing 4-2를 통해 정수를 사용하는 예시를 보겠습니다.
   </p>
-    <code class="language-rust edition2021">
+    <code class="language-rust edition2021 editable">
       let x = 5;
       let y = x;
     </code>
@@ -288,7 +288,7 @@
   <p>
     이제 <code>String</code> 타입을 예로 들어보겠습니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     let s1 = String::from("hello");
     let s2 = s1;
   </code>
@@ -358,7 +358,7 @@
     메모리 안정성을 보장하기 위해 Rust는 <code>let s2 = s1;</code> 라인이 실행된 이후 <code>s1</code> 을 더 이상 유효하지 않은 변수로 간주합니다. 따라서, <code>s1</code>이 범위를 벗어나도 Rust는 아무것도 해제할 필요가 없습니다.</br>
     <code>s2</code>가 생성된 이후 <code>s1</code>를 사용하려고 시도하면 어떤 문제가 발생하는지 다음 코드를 통해 실험해보세요.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     let s1 = String::from("hello");
     let s2 = s1;
     println!("{s1}, world!");
@@ -427,7 +427,7 @@
     다음은 <code>clone</code> 메서드가 동작하는 예시입니다.
   </p>
   <p>
-    <code class="language-rust edition2021">
+    <code class="language-rust edition2021 editable">
       fn main() {
         let s1 = String::from("hello");
         let s2 = s1.clone();
@@ -451,7 +451,7 @@
     우리가 아직 이야기하지 않은 또 다른 복잡한 점이 있습니다. 정수와 같은 코드는  (Listing 4-2에 나왔던 코드) 잘 작동하며 유효합니다.
   </p>
   <p>
-    <code class="language-rust edition2021">
+    <code class="language-rust edition2021 editable">
       fn main() {
         let x = 5;
         let y = x;
@@ -511,7 +511,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
       let s = String::from("hello");  // 변수 s가 범위 내에 들어오는 시점
       takes_ownership(s);             // s가 함수로 이동
@@ -552,7 +552,7 @@
       파일 명: src/main.rs
     </span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
       let s1 = gives_ownership(); // gives_ownership 함수는 반환 값을 s1으로 이동시킵니다.
       let s2 = String::from("hello"); // s2 변수가 범위에 들어오는 시점
@@ -586,7 +586,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
   fn main() {
     let s1 = String::from("hello");
     let (s2, len) = calculate_length(s1);

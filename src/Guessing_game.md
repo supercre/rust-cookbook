@@ -39,7 +39,7 @@ edition = "2021"
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
 fn main() {
     println!("Hello, world!");
 }
@@ -66,7 +66,7 @@ Hello, world!
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
 use std::io;
 
 fn main() {
@@ -87,7 +87,7 @@ fn main() {
 
 이 코드에 담긴 다양한 정보를 한 줄씩 살펴보겠습니다. 사용자 입력을 받고 결괏값을 표시하기 위해서는 `io` 입출력 라이브러리를 스코프로 가져와야 합니다. `io` 라이브러리는 `std라고` 불리는 표준 라이브러리에 있습니다:
 
-``` rust
+``` rust,editable
 use std::io;
 ```
 
@@ -98,7 +98,7 @@ use std::io;
 
 1장에서 보았듯이 `main` 함수는 프로그램의 진입점입니다:
 
-``` rust
+``` rust,editable
 fn main() {
 ```
 
@@ -106,7 +106,7 @@ fn main() {
 
 1장에서 배웠듯이 `println!`은 문자열을 화면에 출력하는 매크로입니다:
 
-``` rust
+``` rust,editable
     println!("Guess the number!");
 
     println!("Please input your guess.");
@@ -118,19 +118,19 @@ fn main() {
 
 다음으로, 아래와 같이 사용자의 입력값을 저장할 *변수 (variable)* 를 생성합니다.
 
-``` rust
+``` rust,editable
     let mut guess = String::new();
 ```
 
 이제 프로그램이 점점 흥미로워지고 있습니다! 이 짧은 라인에서 여러 일들이 벌어집니다. 변수를 만드는 데에는 `let` 구문을 사용합니다. 다음 코드도 변수를 선언하는 예시입니다:
 
-``` rust
+``` rust,editable
 let apples = 5;
 ```
 
 이 라인은 `apples`라는 변수를 만들고 5라는 값을 묶어 넣습니다. 러스트에서 변수는 기본적으로 불변 (immutable) 인데, 이는 변수에 어떤 값을 집어넣으면 그 값이 안 바뀔 것이란 뜻입니다. 이 개념에 대한 자세한 내용은 3장의 [‘변수와 가변성’]() 절에서 논의할 예정입니다. 변수의 값을 가변 (mutable), 즉 변경 가능하도록 하려면 변수명 앞에 `mut`를 추가합니다:
 
-``` rust
+``` rust,editable
 let apples = 5; // immutable
 let mut bananas= 5; // mutable
 ```
@@ -152,7 +152,7 @@ let mut bananas= 5; // mutable
 프로그램에 첫 번째 라인에 `use std::io;`를 이용하여 표준 라이브러리의 입출력 기능을 가져온 것을 상기해 보세요. 
 이제 `io` 모듈의 연관 함수인 `stdin`을 호출하는데, 이것이 사용자의 입력을 처리할 수 있게 해 줄 것입니다:
 
-``` rust
+``` rust,editable
     io::stdin()
         .read_line(&mut guess)
 ```
@@ -171,12 +171,12 @@ let mut bananas= 5; // mutable
 
 아직 이 라인에 대해 다 설명하지 않았습니다. 코드의 세 번째 라인에 대해서 논의하는 중이지만, 논리적으로는 한 줄짜리 코드의 일부일 뿐임을 참고하세요. 다음 부분은 아래의 메서드입니다:
 
-``` rust
+``` rust,editable
         .expect("Failed to read line");
 ```    
 위 코드를 아래처럼 쓸 수도 있습니다.
 
-``` rust
+``` rust,editable
 io::stdin().read_line(&mut guess).expect("Failed to read line");
 ``` 
 
@@ -217,14 +217,14 @@ warning: `guessing_game` (bin "guessing_game") generated 1 warning
 
 지금까지 작성한 코드에서 닫는 중괄호 말고도 살펴봐야 하는 코드가 하나 더 있습니다. 내용은 아래와 같습니다.
 
-``` rust
+``` rust,editable
     println!("You guessed: {guess}");
 ```
 
 이 라인은 사용자가 입력한 값을 담고 있는 문자열을 출력합니다. `{}`는 자리표시자 (placeholder) 입니다: `{}`를 어떤 위치에 값을 자리하도록 하는 작은 집게발이라고 생각하면 됩니다. 어떤 변수의 값을 출력할 때라면 해당 변수 이름을 이 중괄호 안에 넣을 수 있습니다.   
 어떤 표현식의 결괏값을 출력할 때는 빈 중괄호를 형식 문자열에 위치시키고, 그 뒤에 쉼표로 구분된 표현식들을 나열하여 각 중괄호에 순차적으로 출력하도록 할 수 있습니다. 어떤 변수와 표현식 결괏값을 한 번의 `println!` 호출로 출력한다면 아래와 같은 형태가 됩니다:
 
-``` rust
+``` rust,editable
 let x = 5;
 let y = 10;
 
@@ -356,7 +356,7 @@ rand = "0.9.0"
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
 use std::io;
 use rand::Rng;
 
@@ -423,7 +423,7 @@ You guessed: 5
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
@@ -489,7 +489,7 @@ error: could not compile `guessing_game` due to previous error
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
     // --생략--
 
     let mut guess = String::new();
@@ -511,7 +511,7 @@ error: could not compile `guessing_game` due to previous error
 
 추가된 라인은 다음과 같습니다:
 
-``` rust
+``` rust,editable
 let guess: u32 = guess.trim().parse().expect("Please type a number!");
 ```
 
@@ -552,7 +552,7 @@ Too big!
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
     // --생략--
 
     println!("The secret number is: {secret_number}");
@@ -609,7 +609,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
         // --생략--
 
         match guess.cmp(&secret_number) {
@@ -633,7 +633,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
         // --생략--
 
         io::stdin()
@@ -689,7 +689,7 @@ You win!
 
 파일명: src/main.rs
 
-``` rust
+``` rust,editable
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io;

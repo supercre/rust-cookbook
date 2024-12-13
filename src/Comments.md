@@ -4,13 +4,13 @@
 
 다음은 간단한 주석입니다:
 
-```rust
+```rust,editable
 // hello, world
 ```
 
 Rust에서 관용적 주석 스타일은 슬래시 두 개로 시작하고 줄이 끝날 때까지 계속됩니다. 한 줄을 넘어서는 경우 다음과 같이 각 줄에 `//`를 포함해야 합니다:
 
-```rust
+```rust,editable
 // 그래서 우리는 여기서 여러 줄의 댓글이 필요할 정도로
 // 복잡한 작업을 하고 있습니다! 휴! 이 댓글을 통해 무슨
 // 일이 벌어지고 있는지 설명해드릴 수 있기를 바랍니다.
@@ -18,7 +18,7 @@ Rust에서 관용적 주석 스타일은 슬래시 두 개로 시작하고 줄�
 
 주석은 코드가 포함된 줄의 끝에 배치할 수도 있습니다:
 
-```rust
+```rust,editable
 fn main() {
     let lucky_number = 7; // I’m feeling lucky today
 }
@@ -26,7 +26,7 @@ fn main() {
 
 하지만 주석이 달린 코드 위에 별도의 줄에 주석을 달아 이 형식으로 사용하는 경우가 더 많습니다:
 
-```rust
+```rust,editable
 fn main() {
     // I’m feeling lucky today
     let lucky_number = 7;

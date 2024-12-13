@@ -11,7 +11,7 @@
   <p>
     슬라이스를 사용하지 않고 이 함수의 시그니처를 작성하는 방법을 생각해봄으로써 슬라이스가 해결할 문제를 이해해봅시다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;String) -&gt; ?
   </code>
   <p>
@@ -20,7 +20,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;String) -&gt; usize {
         let bytes = s.as_bytes();
         for (i, &amp;item) in bytes.iter().enumerate() {
@@ -41,7 +41,7 @@
   <p>
     우리는 <code>String</code>을 요소별로 확인하여 값이 공백인지 확인해야 하므로, <code>as_bytes</code> 메서드를 사용하여 <code>String</code>을 바이트 배열로 변환할 것입니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;String) -&gt; usize {
         let bytes = s.as_bytes();
         for (i, &amp;item) in bytes.iter().enumerate() {
@@ -57,7 +57,7 @@
   <p>
     다음으로, <code>iter</code> 메서드를 사용하여 바이트 배열에 대한 반복자를 생성합니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;String) -&gt; usize {
         let bytes = s.as_bytes();
         </span>
@@ -83,7 +83,7 @@
   <p>
     <code>for</code> 루프 내부에서 바이트 리터럴 문법을 사용하여 공백을 나타내는 바이트를 찾습니다. 만약 공백을 찾으면 그 위치를 반환합니다. 그렇지 않으면, <code>s.len()</code>을 사용하여 문자열의 길이를 반환합니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;String) -&gt; usize {
         let bytes = s.as_bytes();
         </span>
@@ -106,7 +106,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;String) -&gt; usize {
         let bytes = s.as_bytes
         for (i, &amp;item) in bytes.iter().enumerate() {
@@ -141,7 +141,7 @@
     <code>word</code>에 저장된 인덱스가 <code>s</code>의 데이터와 동기화 되지 않을 가능성을 걱정해야 하는 것은 번거로우며 오류를 유발하기 쉽습니다.</br>
     <code>second_word</code>와같은 두 번째 단어를 찾는 함수를 작성한다면 이러한 인덱스를 관리하는 것은 훨씬 더 어려워질 것이며, 다음 예제를 통해 이를 볼 수 있습니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn second_word(s: &amp;String) -&gt; (usize, usize) {
   </code>
   <p>
@@ -160,7 +160,7 @@
   <p>
     문자열 슬라이스(string slices)는 <code>String</code>의 일부를 참조하는 것으로, 다음과 같은 형태를 가지고 있습니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let s = String::from("hello world");
         </span>
@@ -195,7 +195,7 @@
   <p>
     Rust의 <code>..</code> 범위 문법을 사용하면, 두 점 앞의 값을 생략할 수 있습니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let s = String::from("hello");
         </span>
@@ -206,7 +206,7 @@
   <p>
     마찬가지로, 만약 슬라이스가 <code>String</code>의 마지막 바이트를 포함한다면, 끝 숫자를 생략할 수 있습니다.
   </p>
-  <code class="language-rust edition2021">#![allow(unused)]
+  <code class="language-rust edition2021 editable">#![allow(unused)]
     fn main() {
         let s = String::from("hello");
         </span>
@@ -219,7 +219,7 @@
   <p>
     두 값을 모두 생략하여 전체 문자열의 슬라이스를 취할 수도 있습니다. 즉, 다음 두 가지는 동일합니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let s = String::from("hello");
         </span>
@@ -245,7 +245,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;String) -&gt; &amp;str {
         let bytes = s.as_bytes();
         </span>
@@ -269,7 +269,7 @@
   <p>
     슬라이스를 반환하는 방식은 <code>second_word</code> 함수에도 적용할 수 있습니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn second_word(s: &amp;String) -&gt; &amp;str {
   </code>
   <p>
@@ -281,7 +281,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;String) -&gt; &amp;str {
         let bytes = s.as_bytes();
         </span>
@@ -337,7 +337,7 @@
   <p>
     문자열 리터럴이 바이너리 내부에 저장된다고 이야기했던 것을 기억하시죠? 이제 슬라이스에 대해 알게 되었으므로, 문자열 리터럴을 제대로 이해할 수 있습니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let s = "Hello, world!";
     }
@@ -354,13 +354,13 @@
   <p>
     문자열 리터럴과 <code>String</code> 값에서 슬라이스를 취할 수 있다는 사실을 알게 되면, <code>first_word</code>의 또 다른 개선점을 알게 되며, 그것은 바로 함수의 시그니처입니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;String) -&gt; &amp;str {
   </code>
   <p>
     더 숙련된 러스트 프로그래머는 Listing 4-9에 표시된 시그니처처럼 작성할 것입니다. 이 방식은 <code>&amp;String</code> 값과 <code>&amp;str</code> 값 모두에서 동일한 함수를 사용할 수 있게 해줍니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;str) -&gt; &amp;str {
         let bytes = s.as_bytes();
         </span>
@@ -407,7 +407,7 @@
   <p>
     <span>파일 명: src/main.rs</span>
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn first_word(s: &amp;str) -&gt; &amp;str {
         let bytes = s.as_bytes();
         </span>
@@ -446,7 +446,7 @@
   <p>
     문자열 슬라이스는 문자열에 특화된 것입니다. 하지만 더 일반적인 슬라이스 타입도 있습니다. 이 배열을 고려해봅시다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let a = [1, 2, 3, 4, 5];
     }
@@ -454,7 +454,7 @@
   <p>
     문자열의 일부를 참조하고 싶을 때처럼, 배열의 일부를 참조하고 싶을 수 있습니다. 그럴 땐 아래와 같이 코드를 작성할 수 있습니다.
   </p>
-  <code class="language-rust edition2021">
+  <code class="language-rust edition2021 editable">
     fn main() {
         let a = [1, 2, 3, 4, 5];
         let slice = &amp;a[1..3];

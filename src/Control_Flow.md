@@ -8,7 +8,7 @@
 
 _projects_ 디렉토리에 _branch_ 라는 새 프로젝트를 만들어 `if` 표현식을 살펴봅니다. src/main.rs 파일에 다음을 입력합니다:
 
-```rust
+```rust,editable
 fn main() {
     let number = 3;
 
@@ -36,7 +36,7 @@ condition was true
 
 숫자 값을 조건을 거짓으로 만드는 값으로 변경하여 어떤 일이 발생하는지 확인해 보겠습니다:
 
-```rust
+```rust,editable
 let number = 7;
 ```
 
@@ -52,7 +52,7 @@ condition was false
 
 이 코드의 조건은 _반드시_ `bool` 이어야 한다는 점도 주목할 필요가 있습니다. 조건이 `bool` 이 아닌 경우 오류가 발생합니다. 예를 들어 다음 코드를 실행해 보세요:
 
-```rust
+```rust,editable
 fn main() {
     let number = 3;
 
@@ -79,7 +79,7 @@ error: could not compile `branches` (bin "branches") due to 1 previous error
 
 이 오류는 Rust가 `bool`을 기대했지만 정수를 가져왔음을 나타냅니다. Ruby 및 JavaScript와 같은 언어와 달리 Rust는 부울이 아닌 유형을 부울로 자동 변환하려고 시도하지 않습니다. 항상 부울을 조건으로 명시적으로 `if`를 제공해야 합니다. 예를 들어 숫자가 0이 아닌 경우에만 `if` 코드 블록이 실행되도록 하려면 `if` 표현식을 다음과 같이 변경하면 됩니다:
 
-```rust
+```rust,editable
 fn main() {
     let number = 3;
 
@@ -95,7 +95,7 @@ fn main() {
 
 다른 경우 표현식에서 `if`와 `else`를 결합하여 여러 조건을 사용할 수 있습니다. 예를 들어:
 
-```rust
+```rust,editable
 fn main() {
     let number = 6;
 
@@ -129,7 +129,7 @@ number is divisible by 3
 
 `if`는 표현식이므로 목록 3-2에서와 같이 `let` 문의 오른쪽에 사용하여 결과를 변수에 할당할 수 있습니다.
 
-```rust
+```rust,editable
 fn main() {
     let condition = true;
     let number = if condition { 5 } else { 6 };
@@ -152,7 +152,7 @@ The value of number is: 5
 
 코드 블록은 그 안의 마지막 표현식까지 평가되며 숫자 자체도 표현식이라는 점을 기억하세요. 이 경우 전체 `if` 표현식의 값은 어떤 코드 블록이 실행되는지에 따라 달라집니다. 즉, if의 각 암에서 결과가 될 수 있는 값은 동일한 유형이어야 하며, 목록 3-2에서는 `if` 암과 `else` 암의 결과가 모두 `i32` 정수입니다. 다음 예제에서와 같이 유형이 일치하지 않으면 오류가 발생합니다:
 
-```rust
+```rust,editable
 fn main() {
     let condition = true;
 
@@ -193,7 +193,7 @@ Rust에는 `loop`, `while`, `for`의 세 가지 루프가 있습니다. 각각�
 
 루프의 디렉토리에 있는 src/main.rs 파일을 다음과 같이 변경합니다:
 
-```rust
+```rust,editable
 fn main() {
     loop {
         println!("again!");
@@ -203,7 +203,7 @@ fn main() {
 
 이 프로그램을 실행하면 프로그램을 수동으로 중지할 때까지 계속 반복해서 "again!"가 출력됩니다. 대부분의 단말기는 키보드 단축키 `ctrl`-`c`를 지원하여 계속 반복되는 프로그램을 중단할 수 있습니다. 한 번 시도해 보세요:
 
-```rust
+```rust,editable
 $ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
     Finished dev [unoptimized + debuginfo] target(s) in 0.29s
@@ -225,7 +225,7 @@ again!
 
 루프의 용도 중 하나는 스레드가 작업을 완료했는지 확인하는 등 실패할 수 있는 연산을 다시 시도하는 것입니다. 또한 해당 작업의 결과를 루프에서 나머지 코드에 전달해야 할 수도 있습니다. 이렇게 하려면 여기에 표시된 것처럼 루프를 중지하는 데 사용하는 중단 표현식 뒤에 반환할 값을 추가하면 해당 값이 루프 밖으로 반환되어 사용할 수 있습니다:
 
-```rust
+```rust,editable
 fn main() {
     let mut counter = 0;
 
@@ -249,7 +249,7 @@ fn main() {
 
 루프 안에 루프가 있는 경우 해당 지점에서 가장 안쪽 루프에 `break`와 `continue`를 적용합니다. 선택적으로 루프에 루프 레이블을 지정한 다음 `break`와 함께 사용하거나 해당 키워드가 가장 안쪽 루프 대신 레이블이 지정된 루프에 적용되도록 `continue`를 지정할 수 있습니다. 루프 레이블은 작은따옴표로 시작해야 합니다. 다음은 두 개의 중첩된 루프가 있는 예제입니다:
 
-```rust
+```rust,editable
 fn main() {
     let mut count = 0;
     'counting_up: loop {
@@ -295,7 +295,7 @@ End count = 2
 
 프로그램은 종종 루프 내에서 조건을 평가해야 할 때가 있습니다. 조건이 참이면 루프가 실행됩니다. 조건이 참이 아니게 되면 프로그램은 `break`를 호출하여 루프를 중지합니다. `loop`, `if`, `else`, `break`를 조합하여 이와 같은 동작을 구현할 수 있으며, 원한다면 지금 프로그램에서 이를 시도해 볼 수 있습니다. 그러나 이 패턴은 매우 일반적이기 때문에 Rust에는 이를 위한 언어 구조인 `while` 루프가 내장되어 있습니다. 목록 3-3에서는 `while`을 사용하여 프로그램을 세 번 반복하고 매번 카운트다운한 다음, 루프가 끝나면 메시지를 출력하고 종료합니다.
 
-```rust
+```rust,editable
 fn main() {
     let mut number = 3;
 
@@ -317,7 +317,7 @@ fn main() {
 
 배열과 같은 컬렉션의 요소를 반복하는 데 `while` 구문을 사용할 수도 있습니다. 예를 들어 목록 3-4의 루프는 배열 `a`의 각 요소를 출력합니다.
 
-```rust
+```rust,editable
 fn main() {
     let a = [10, 20, 30, 40, 50];
     let mut index = 0;
@@ -352,7 +352,7 @@ the value is: 50
 
 보다 간결한 대안으로 `for` 루프를 사용하여 컬렉션의 각 항목에 대해 몇 가지 코드를 실행할 수 있습니다. `for` 루프는 목록 3-5의 코드와 비슷합니다.
 
-```rust
+```rust,editable
 fn main() {
     let a = [10, 20, 30, 40, 50];
 
@@ -371,7 +371,7 @@ fn main() {
 
 다음은 범위 반전을 위해 `for` 루프와 아직 설명하지 않은 다른 방법인 `rev`를 사용한 카운트다운의 모습입니다:
 
-```rust
+```rust,editable
 fn main() {
     for number in (1..4).rev() {
         println!("{number}!");
