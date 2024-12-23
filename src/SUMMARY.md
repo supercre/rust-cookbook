@@ -20,7 +20,7 @@
     - [References and Borrowing](References_and_borrowing.md)
     - [The Slice Type](The_slice_type.md)
     - [연습문제]()
-        - [연습문제 1]()
+        - [연습문제 1](practice/practice_1.md)
         - [연습문제 2]()
         - [연습문제 3]()
         - [연습문제 4]()
