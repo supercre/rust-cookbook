@@ -21,7 +21,7 @@
     - [The Slice Type](The_slice_type.md)
     - [연습문제]()
         - [연습문제 1](practice/practice_1.md)
-        - [연습문제 2]()
+        - [연습문제 2](practice/practice_2.md)
         - [연습문제 3]()
         - [연습문제 4]()
 
