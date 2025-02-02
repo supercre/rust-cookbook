@@ -24,4 +24,10 @@
         - [연습문제 2](practice/practice_2.md)
         - [연습문제 3]()
         - [연습문제 4]()
-
+- []()
+- []()
+- []()
+- [Common Collections](Common_Collections.md)
+    - [Storing Lists of Values with Vectors](Storing_Lists_of_Values_with_Vectors.md)
+    - [Storing UTF-8 Encoded Text with Strings](Storing_UTF-8_Encoded_Text_with_Strings.md)
+    - [Storing Keys with Associated Values in Hash Maps](Storing_Keys_with_Associated_Values_in_Hash_Maps.md)
