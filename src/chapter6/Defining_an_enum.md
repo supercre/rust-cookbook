@@ -1,0 +1,373 @@
+<section>
+  <h2>
+    <a>열거형 정의하기(Defining an Enum)</a>
+  </h2>
+  <p>
+    <code>Rectangle</code>이 <code>width</code>와 <code>height</code>를 가지고 있는 것처럼 구조체가 서로 연관된 필드 및 데이터를 묶는 방법을 제공한다면, 열거형은 어떤 값이 여러 개의 가능한 값의 집합 중 하나라는 것을 나타내는 방법을 제공합니다. 예를 들면 <code>Rectangle</code>이 <code>Circle</code>과 <code>Triangle</code>을 포함하는 다양한 모양들의 집합 중 하나라고 표현하고 싶을 수도 있습니다. 이렇게 하기 위해서 러스트는 가능한 것들을 열거형으로 나타내게 해줍니다.
+  </p>
+  <p>
+    IP 주소를 다루는 프로그램을 만들어 보면서, 어떤 상황에서 열거형이 구조체보다 유용하고 적절한지 알아보겠습니다.
+    현재 사용되는 IP 주소 표준은 IPv4, IPv6 두 종류입니다(앞으로 v4, v6로 표기하겠습니다).
+    우리가 만들 프로그램에서 다룰 IP 종류는 이 두 가지가 전부이므로, 이처럼 가능한 모든 배리언트 (variant) 들을 죽 <em>늘어놓을</em> 수 있는데, 이 때문에 열거형이라는 이름이 붙은 것입니다.
+  </p>
+  <p>
+    IP 주소는 반드시 v4나 v6 중 하나만 될 수 있는데, 이러한 특성은 열거형 자료 구조에 적합합니다.
+    왜냐하면, 열거형의 값은 여러 배리언트 중 하나만 될 수 있기 때문입니다.
+    v4, v6는 근본적으로 IP 주소이기 때문에, 이 둘은 코드에서 모든 종류의 IP 주소에 적용되는 상황을 다룰 때 동일한 타입으로 처리되는 것이
+    좋습니다.
+  </p>
+  <p>
+    <code>IpAddrKind</code>라는 열거형을 정의하면서 포함할 수 있는 IP 주소인 <code>V4</code>와 <code>V6</code>를 나열함으로써 이 개념을 코드에 표현할 수 있습니다.
+    이것들을 열거형의 <em>배리언트</em>라고 합니다.
+  </p>
+  <code class="language-rust edition2021">
+    enum IpAddrKind {
+      V4,
+      V6,
+    }
+  </code>
+  <p>
+    이제 <code>IpAddrKind</code>는 코드 어디에서나 쓸 수 있는 커스텀 데이터 타입이 되었습니다.
+  </p>
+  <h3 id="열거형-값">
+    <a class="header" href="#열거형-값">열거형 값</a>
+  </h3>
+  <p>
+    아래처럼 <code>IpAddrKind</code>의 두 개의 배리언트에 대한 인스턴스를 만들 수 있습니다:
+  </p>
+  <code class="language-rust edition2021">
+    fn main() {
+      let four = IpAddrKind::V4;
+      let six = IpAddrKind::V6;
+    }
+  </code>
+  <p>
+    열거형을 정의할 때의 식별자로 네임스페이스가 만들어져서, 각 배리언트 앞에 이중 콜론(<code>::</code>)을 붙여야 한다는 점을 주의하세요. 
+    이 방식은 <code>IpAddrKind::V4</code>, <code>IpAddrKind::V6</code>가 모두 <code>IpAddrKind</code> 타입이라는 것을 표현할 수 있기 때문에 유용합니다. 
+    이제 <code>IpAddrKind</code> 타입을 인수로 받는 함수를 정의해 봅시다:
+  </p>
+  <code class="language-rust edition2021">
+    fn route(ip_kind: IpAddrKind) {}
+  </code>
+  <p>
+    그리고, 배리언트 중 하나를 사용해서 함수를 호출할 수 있습니다:
+  </p>
+  <code class="language-rust edition2021">
+    route(IpAddrKind::V4);
+    route(IpAddrKind::V6);
+  </code>
+  <p>
+    열거형을 사용하면 더 많은 이점이 있습니다.
+    IP 주소 타입에 대해 더 생각해 보면, 지금으로서는 실제 IP 주소 <em>데이터</em>를 저장할 방법이 없고 어떤 <em>종류</em>인지만 알 수 있습니다. 
+    5장에서 구조체에 대해 배웠다면, 이 문제를 예제 6-1처럼 구조체를 사용하여 해결하고 싶을 수 있겠습니다:
+  </p>
+  <code class="language-rust edition2021">
+    enum IpAddrKind {
+        V4,
+        V6,
+    }
+
+    struct IpAddr {
+        kind: IpAddrKind,
+        address: String,
+    }
+
+    let home = IpAddr {
+        kind: IpAddrKind::V4,
+        address: String::from("127.0.0.1"),
+    };
+
+    let loopback = IpAddr {
+        kind: IpAddrKind::V6,
+        address: String::from("::1"),
+    };
+  </code>
+  <p>
+    <span class="caption">
+      예제 6-1: <code>struct</code>를 사용해서 IP 주소의 데이터와 <code>IpAddrKind</code> 배리언트 저장하기
+    </span>
+  </p>
+  <p>
+    여기서는 <code>IpAddrKind</code> (이전에 정의한 열거형) 타입인 <code>kind</code> 필드와 <code>String</code> 타입인 <code>address</code> 필드를 갖는 <code>IpAddr</code>를 정의했습니다.
+    그리고 이 구조체의 인스턴스 두 개를 생성했습니다. 첫 번째 <code>home</code>은 <code>kind</code>의 값으로 <code>IpAddrKind::V4</code>를, 연관된 주소 데이터로 <code>127.0.0.1</code>을 갖습니다. 
+    두 번째 <code>loopback</code>은 <code>IpAddrKind</code>의 다른 배리언트인 <code>V6</code>를 값으로 갖고, 연관된 주소로 <code>::1</code>을 갖습니다. <code>kind</code>와 <code>address</code>의 값을 함께 사용하기 위해 구조체를 사용했습니다. 
+    그렇게 함으로써 배리언트가 연관된 값을 갖게 되었습니다.
+  </p>
+  <p>
+    각 열거형 배리언트에 데이터를 직접 넣는 방식을 사용해서 열거형을 구조체의 일부로 사용하는 방식보다 더 간결하게 동일한 개념을 표현할 수 있습니다.
+    <code>IpAddr</code> 열거형의 새로운 정의에서 두 개의 <code>V4</code>와 <code>V6</code> 배리언트는 연관된 <code>String</code> 타입의 값을 갖게 됩니다:
+  </p>
+  <code class="language-rust edition2021">
+      enum IpAddr {
+          V4(String),
+          V6(String),
+      }
+
+    let home = IpAddr::V4(String::from("127.0.0.1"));
+
+    let loopback = IpAddr::V6(String::from("::1"));
+  </code>
+  <p>
+    열거형의 각 배리언트에 직접 데이터를 붙임으로써, 구조체를 사용할 필요가 없어졌습니다. 
+    또한 여기서 열거형의 동작에 대한 다른 세부 사항을 살펴보기가 좀 더 쉬워졌습니다: 
+    각 열거형 배리언트의 이름이 해당 열거형 인스턴스의 생성자 함수처럼 된다는 것이죠. 
+    즉, <code>IpAddr::V4()</code>는 <code>String</code> 인수를 입력받아서 <code>IpAddr</code> 타입의 인스턴스 결과를 만드는 함수입니다.
+    열거형을 정의한 결과로써 이러한 생성자 함수가 자동적으로 정의됩니다.
+  </p>
+  <p>
+    구조체 대신 열거형을 사용하면 또 다른 장점이 있습니다.
+    각 배리언트는 다른 타입과 다른 양의 연관된 데이터를 가질 수 있습니다.
+    V4 IP 주소는 항상 0 ~ 255 사이의 숫자 4개로 된 구성 요소를 갖게 될 것입니다.
+    <code>V4</code> 주소에 4개의 <code>u8</code> 값을 저장하길 원하지만, <code>V6</code> 주소는 하나의 <code>String</code> 값으로 표현되길 원한다면, 구조체로는 이렇게 할 수 없습니다.
+    열거형은 이런 경우를 쉽게 처리합니다:
+  </p>
+  <code class="language-rust edition2021">
+    enum IpAddr {
+        V4(u8, u8, u8, u8),
+        V6(String),
+    }
+
+    let home = IpAddr::V4(127, 0, 0, 1);
+
+    let loopback = IpAddr::V6(String::from("::1"));
+  </code>
+  <p>
+    두 가지 다른 종류의 IP 주소를 저장하기 위해 코드에 열거형을 정의하는 몇 가지 방법을 살펴봤습니다.
+    그러나, 누구나 알듯이 IP 주소와 그 종류를 저장하는 것은 흔하기 때문에, <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html">표준 라이브러리에 정의된 것을 사용할 수 있습니다!</a>
+    표준 라이브러리에서 <code>IpAddr</code>를 어떻게 정의하고 있는지 살펴봅시다.
+    위에서 정의하고 사용했던 것과 동일한 열거형과 배리언트를 갖고 있지만, 배리언트에 포함된 주소 데이터는 두 가지 다른 구조체로 되어 있으며, 각 배리언트마다 다르게 정의하고 있습니다:
+  </p>
+  <code class="language-rust edition2021">
+    struct Ipv4Addr {
+        // --생략--
+    }
+
+    struct Ipv6Addr {
+        // --생략--
+    }
+
+    enum IpAddr {
+        V4(Ipv4Addr),
+        V6(Ipv6Addr),
+    }
+  </code>
+  <p>
+    이 코드로 알 수 있듯, 열거형 배리언트에는 어떤 종류의 데이터라도 넣을 수 있습니다.
+    문자열, 숫자 타입, 구조체 등은 물론, 다른 열거형마저도 포함할 수 있죠!
+    이건 여담이지만, 러스트의 표준 라이브러리 타입은 여러분의 생각보다 단순한 경우가 꽤 있습니다.
+  </p>
+  <p>
+    현재 스코프에 표준 라이브러리를 가져오지 않았기 때문에, 표준 라이브러리에 <code>IpAddr</code> 정의가 있더라도 동일한 이름의 타입을 만들고 사용할 수 있음을 주의하세요.
+    타입을 스코프로 가져오는 것에 대해서는 7장에서 더 살펴보겠습니다.
+  </p>
+  <p>
+    예제 6-2에 있는 열거형의 다른 예제를 살펴봅시다. 
+    이 예제에서는 각 배리언트에 다양한 종류의 타입들이 포함되어 있습니다:
+  </p>
+  <code class="language-rust edition2021">
+    enum Message {
+      Quit,
+      Move { x: i32, y: i32 },
+      Write(String),
+      ChangeColor(i32, i32, i32),
+    }
+  </code>
+  <p>
+    <span class="caption">예제 6-2: <code>Message</code> 
+      열거형은 각 배리언트가 다른 타입과 다른 양의 값을 저장합니다.
+    </span>
+  </p>
+  <p>
+    이 열거형에는 다른 데이터 타입을 갖는 네 개의 배리언트가 있습니다:
+  </p>
+  <ul>
+    <li><code>Quit</code>은 연관된 데이터가 전혀 없습니다.</li>
+    <li><code>Move</code>은 구조체처럼 이름이 있는 필드를 갖습니다.</li>
+    <li><code>Write</code>은 하나의 <code>String</code>을 가집니다.</li>
+    <li><code>ChangeColor</code>는 세 개의 <code>i32</code>을 가집니다.</li>
+  </ul>
+  <p>
+    예제 6-2에서처럼 배리언트로 열거형을 정의하는 것은 다른 종류의 구조체들을 정의하는 것과 비슷합니다.
+    열거형이 구조체와 다른 점은 <code>struct</code> 키워드를 사용하지 않는다는 것과 모든 배리언트가 <code>Message</code> 타입으로 묶인다는 것입니다.
+    아래 구조체들은 이전 열거형의 배리언트가 갖는 것과 동일한 데이터를 가질 수 있습니다:
+  </p>
+  <code class="language-rust edition2021">
+    struct QuitMessage; // 유닛 구조체
+    struct MoveMessage {
+        x: i32,
+        y: i32,
+    }
+    struct WriteMessage(String); // 튜플 구조체
+    struct ChangeColorMessage(i32, i32, i32); // 튜플 구조체
+  </code>
+  <p>
+    각기 다른 타입을 갖는 여러 개의 구조체를 사용한다면, 이 메시지 중 어떤 한 가지를 인수로 받는 함수를 정의하기 힘들 것입니다. 
+    예제 6-2에 정의한 <code>Message</code> 열거형은 하나의 타입으로 이것이 가능합니다.
+  </p>
+  <p>
+    열거형과 구조체는 한 가지 더 유사한 점이 있습니다. 
+    구조체에 <code>impl</code>을 사용해서 메서드를 정의한 것처럼, 열거형에도 정의할 수 있습니다.
+    여기 <code>Message</code> 열거형에 정의한 <code>call</code>이라는 메서드가 있습니다:
+  </p>
+  <code class="language-rust edition2021">
+    impl Message {
+        fn call(&amp;self) {
+            // 메서드 본문이 여기 정의될 것입니다
+        }
+    }
+
+    let m = Message::Write(String::from("hello"));
+    m.call();
+  </code>
+  <p>
+    메서드 본문에서는 <code>self</code>를 사용하여 호출한 열거형의 값을 가져올 것입니다.
+    이 예제에서 생성한 변수 <code>m</code>은 <code>Message::Write(String::from("hello"))</code> 값을 갖게 되고, 이 값은 <code>m.call()</code>이 실행될 때
+    <code>call</code> 메서드 안에서 <code>self</code>가 될 것입니다.
+  </p>
+  <p>이제 표준 라이브러리에 포함된 열거형 중에서 굉장히 유용하고 자주 사용되는 <code>Option</code> 열거형을 살펴봅시다:</p>
+
+  <h3 id="option-열거형이-널-값보다-좋은-점들">
+    <a>
+      <code>Option</code> 열거형이 널 값보다 좋은 점들
+    </a>
+  </h3>
+  <p>
+    이번 절에서는 표준 라이브러리에서 열거형으로 정의된 또 다른 타입인 <code>Option</code>에 대한 사용 예를 살펴보겠습니다. 
+    <code>Option</code> 타입은 값이 있거나 없을 수 있는 아주 흔한 상황을 나타냅니다.
+  </p>
+  <p>
+    예를 들어 비어있지 않은 리스트의 첫 번째 아이템을 요청한다면 값을 얻을 수 있을 것입니다. 
+    그렇지만 비어있는 리스트로부터 첫 번째 아이템을 요청한다면 아무 값도 얻을 수 없을 것입니다.
+    이 개념을 타입 시스템으로 표현한다는 것은 처리해야 하는 모든 경우를 처리했는지 컴파일러가 확인할 수 있다는 의미입니다.
+    이러한 기능은 다른 프로그래밍 언어에서 매우 흔하게 발생하는 버그를 방지해줍니다.
+  </p>
+  <p>
+    프로그래밍 언어 디자인은 가끔 어떤 기능들이 포함되었는지의 관점에서 생각되기도 하지만, 어떤 기능을 포함하지 않을 것이냐도 중요합니다.
+    러스트는 다른 언어들에서 흔하게 볼 수 있는 NULL 개념이 없습니다. 
+    <em>NULL</em>은 값이 없음을 표현하는 하나의 값입니다.
+    NULL 개념이 존재하는 언어에서, 변수의 상태는 둘 중 하나입니다.
+    NULL인 경우와, NULL이 아닌 경우죠.
+  </p>
+  <p>
+    널을 고안한 토니 호어 (Tony Hoare) 는 그의 2009년 발표 ‘널 참조: 10억 달러짜리 실수 (Null References: The Billion Dollar Mistake)’에서 다음과 같이 말합니다:
+  </p>
+  <blockquote>
+    <p>
+      저는 그걸 10억 달러짜리 실수라고 부릅니다. 
+      저는 그 당시 객체 지향 언어에서 참조를 위한 첫 포괄적인 타입 시스템을 디자인하고 있었습니다.
+      제 목표는 컴파일러에 의해 자동으로 수행되는 체크를 통해 모든 참조자의 사용이 절대로 안전함을 보장하는 것이었습니다.
+      하지만 구현이 무척 간단하다는 단순한 이유로 널 참조를 넣고 싶은 유혹을 참을 수 없었습니다. 
+      이는 수없이 많은 에러와 취약점, 시스템 종료를 유발했고, 아마도 지난 40년간 10억 달러 수준의 고통과 손실을 초래해왔습니다.
+    </p>
+  </blockquote>
+  <p>
+    NULL 값으로 발생하는 문제는, NULL 값을 NULL이 아닌 값처럼 사용하려고 할 때 여러 종류의 에러가 발생할 수 있다는 것입니다.
+    NULL이나 NULL이 아닌 속성은 어디에나 있을 수 있고, 너무나도 쉽게 이런 종류의 에러를 만들어 냅니다.
+  </p>
+  <p>
+    하지만, ‘현재 어떠한 이유로 인해 유효하지 않거나, 존재하지 않는 하나의 값’이라는 널이 표현하려고 하는 개념은 여전히 유용합니다.
+  </p>
+  <p>
+    NULL의 문제는 실제 개념에 있기보다, 특정 구현에 있습니다.
+    이처럼 러스트에는 NULL이 없지만, 값의 존재 혹은 부재의 개념을 표현할 수 있는 열거형이 있습니다.
+    그 열거형이 바로 <code>Option&lt;T&gt;</code>이며, 다음과 같이 <a href="https://doc.rust-lang.org/std/option/enum.Option.html">표준 라이브러리에 정의되어 있습니다.</a>
+  </p>
+  <code class="language-rust edition2021">
+    enum Option&lt;T&gt; {
+        None,
+        Some(T),
+    }
+  </code>
+  <p>
+    <code>Option&lt;T&gt;</code> 열거형은 너무나 유용하기 때문에, 러스트에서 기본으로 임포트하는 목록인 프렐루드에도 포함되어 있습니다.
+    이것의 배리언트 또한 프렐루드에 포함되어 있습니다:
+    따라서 <code>Some</code>, <code>None</code> 배리언트 앞에 <code>Option::</code>도 붙이지 않아도 됩니다.
+    하지만 <code>Option&lt;T&gt;</code>는 여전히 그냥 일반적인 열거형이며, <code>Some(T)</code>와 <code>None</code>도 여전히 <code>Option&lt;T&gt;</code>의 배리언트 입니다.
+  </p>
+  <p>
+    <code>&lt;T&gt;</code> 문법은 아직 다루지 않은 러스트의 기능입니다.
+    이것은 제네릭 타입 매개변수(generic type parameter)이며, 제네릭에 대해서는 10장에서 더 자세히 다룰 것입니다.
+    지금은 <code>&lt;T&gt;</code>라는 것이 <code>Option</code> 열거형의 <code>Some</code> 배리언트가 어떤 타입의 데이터라도 담을 수 있게 한다는 것, 그리고 <code>T</code>의 자리에 구체적인 타입을 집어넣는 것이 전체 <code>Option&lt;T&gt;</code> 타입을 모두 다른 타입으로 만든다는 것만 알아두면 됩니다. 
+    아래에 숫자 타입과 문자열 타입을 갖는 <code>Option</code> 값에 대한 예들이 있습니다:
+  </p>
+  <code class="language-rust edition2021">
+    let some_number = Some(5);
+    let some_char = Some('e');
+
+    let absent_number: Option&lt;i32&gt; = None;
+  </code>
+  <p>
+    <code>some_number</code>의 타입은 <code>Option&lt;i32&gt;</code>입니다.
+    <code>some_char</code>의 타입은 <code>Option&lt;char&gt;</code>이고 둘은 서로 다른 타입입니다.
+    <code>Some</code> 배리언트 내에 어떤 값을 명시했기 때문에 러스트는 이 타입들을 추론할 수 있습니다. 
+    <code>absent_number</code>에 대해서는 전반적인 <code>Option</code> 타입을 명시하도록 해야 합니다:
+    <code>None</code> 값만 봐서는 동반되는 <code>Some</code> 배리언트가 어떤 타입의 값을 가질지 컴파일러가 추론할 수 없기 때문입니다. 
+    위 예제에서는 <code>absent_number</code>가 <code>Option&lt;i32&gt;</code> 타입임을 명시했습니다.
+  </p>
+  <p>
+    <code>Some</code> 값을 얻게 되면, 값이 존재한다는 것과 해당 값이 <code>Some</code> 내에 있다는 것을 알 수 있습니다.
+    <code>None</code> 값을 얻게 되면, 얻은 값이 유효하지 않다는, 어떤 면에서는 NULL과 같은 의미를 갖습니다.
+    그렇다면 왜 <code>Option&lt;T&gt;</code>가 NULL보다 나을까요?
+  </p>
+  <p>
+    간단하게 말하면, <code>Option&lt;T&gt;</code>와 <code>T</code>(<code>T</code>는 어떤 타입이던 될 수 있음)이 다른 타입이기 때문에, 컴파일러는 <code>Option&lt;T&gt;</code> 값을 명백하게 유효한 값처럼 사용하지 못하도록 합니다.
+    예를 들면, 아래 코드는 <code>Option&lt;i8&gt;</code>에 <code>i8</code>을 더하려고 하고 있으므로 컴파일되지 않습니다:
+  </p>
+  <code class="language-rust ignore does_not_compile">
+    let x: i8 = 5;
+    let y: Option&lt;i8&gt; = Some(5);
+
+    let sum = x + y;
+  </code>
+  <p>이 코드를 실행하면, 아래와 같은 에러 메시지가 출력됩니다:</p>
+  <pre>
+    <code class="language-console">
+    $ cargo run
+      Compiling enums v0.1.0 (file:///projects/enums)
+      error[E0277]: cannot add `Option&lt;i8&gt;` to `i8`
+      --&gt; src/main.rs:5:17
+        |
+      5 |     let sum = x + y;
+        |                 ^ no implementation for `i8 + Option&lt;i8&gt;`
+        |
+        = help: the trait `Add&lt;Option&lt;i8&gt;&gt;` is not implemented for `i8`
+        = help: the following other types implement trait `Add&lt;Rhs&gt;`:
+                  &lt;&amp;'a i8 as Add&lt;i8&gt;&gt;
+                  &lt;&amp;i8 as Add&lt;&amp;i8&gt;&gt;
+                  &lt;i8 as Add&lt;&amp;i8&gt;&gt;
+                  &lt;i8 as Add&gt;
+
+    For more information about this error, try `rustc --explain E0277`.
+    error: could not compile `enums` due to previous error
+    </code>
+  </pre>
+  <p>
+    주목하세요! 실제로, 이 에러 메시지는 러스트가 <code>Option&lt;i8&gt;</code> 와 <code>i8</code>를 어떻게 더해야 하는지 모른다는 것을 의미하는데, 둘은 다른 타입이기 때문입니다.
+    러스트에서 <code>i8</code>과 같은 타입의 값을 가질 때, 컴파일러는 항상 유효한 값을 갖고 있다는 것을 보장할 것입니다.
+    값을 사용하기 전에 NULL 인지 확인할 필요도 없이 자신 있게 사용할 수 있습니다.
+    오직 <code>Option&lt;i8&gt;</code>(혹은 어떤 타입이건 간에)을 사용할 경우에만 값이 있을지 없을지에 대해 걱정할 필요가 있으며, 컴파일러는 값을 사용하기 전에 이런 경우가 처리되었는지 확인해 줄 것입니다.
+  </p>
+  <p>
+    바꿔 말하면, <code>T</code>에 대한 연산을 수행하기 전에 <code>Option&lt;T&gt;</code>를 <code>T</code>로 변환해야 합니다.
+    이런 방식은 NULL로 인해 발생하는 가장 흔한 문제인, 실제로는 NULL인데 NULL이 아니라고 가정하는 상황을 발견하는 데 도움이 됩니다.
+  </p>
+  <p>
+    NULL이 아닌 값을 갖는다는 가정을 놓치는 경우에 대한 위험 요소가 제거되면, 코드에 더 확신을 갖게 됩니다.
+    NULL일 수 있는 값을 사용하기 위해서는 명시적으로 값의 타입을 <code>Option&lt;T&gt;</code>로 만들어 줘야 합니다.
+    그다음엔 값을 사용할 때 명시적으로 NULL인 경우를 처리해야 합니다.
+    값의 타입이 <code>Option&lt;T&gt;</code>가 아닌 모든 곳은 값이 NULL이 아니라고 안전하게 <em>가정할 수 있습니다</em>.
+    이것은 NULL을 너무 많이 사용하는 문제를 제한하고 러스트 코드의 안정성을 높이기 위해 의도된 러스트의 디자인 결정 사항입니다.
+  </p>
+  <p>
+    그래서, <code>Option&lt;T&gt;</code> 타입인 값을 사용할 때 <code>Some</code> 배리언트에서 <code>T</code> 값을 가져오려면 어떻게 해야 하냐고요?
+    <code>Option&lt;T&gt;</code> 열거형이 가진 메서드는 많고, 저마다 다양한 상황에서 유용하게 쓰일 수 있습니다.
+    그러니 한번 <a href="https://doc.rust-lang.org/std/option/enum.Option.html">문서에서</a> 여러분에게 필요한 메서드를 찾아보세요.
+    <code>Option&lt;T&gt;</code>의 여러 메서드를 익혀두면 앞으로의 러스트 프로그래밍에 매우 많은 도움이 될 겁니다.
+  </p>
+  <p>
+    일반적으로, <code>Option&lt;T&gt;</code> 값을 사용하기 위해서는 각 배리언트를 처리할 코드가 필요할 겁니다.
+    <code>Some(T)</code> 값일 때만 실행돼서 내부의 <code>T</code> 값을 사용하는 코드도 필요할 테고, <code>None</code> 값일 때만 실행될, <code>T</code> 값을 쓸 수 없는
+    코드도 필요할 겁니다.
+    <code>match</code> 표현식은 열거형과 함께 사용할 때 이런 작업을 수행하는 제어 흐름 구조로, 열거형의 배리언트에 따라 다른 코드를 실행하고 매칭되는 값 내부의 데이터를 해당 코드에서 사용할 수 있습니다.
+  </p>
+</section>
