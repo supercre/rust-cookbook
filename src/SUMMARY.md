@@ -1,6 +1,8 @@
 # Summary
 
-[**Rust 프로그래밍 언어**](README.md)
+[Rust 프로그래밍 언어 소개](README.md)
+
+# Rust 프로그래밍 언어
 
 - [시작하기](chapter1/Getting_started.md)
   - [설치](chapter1/Installation.md)
