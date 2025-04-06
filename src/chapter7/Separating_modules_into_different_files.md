@@ -1,100 +1,88 @@
-# 모듈(module)을 여러 파일(file)로 분리하기
+# 모듈을 여러 파일로 분리하기
 
-이 섹션에서는 모듈(module)을 여러 파일(file)로 분리하는 방법에 대해 설명합니다.
+지금까지 이 장의 모든 예제에서는 여러 모듈을 하나의 파일에 정의했습니다. 모듈이 커지면, 코드를 더 쉽게 탐색할 수 있도록 정의를 별도의 파일로 이동하고 싶을 수 있습니다.
 
-## 모듈(module)을 여러 파일(file)로 분리하는 이유
+예를 들어, 목록 7-17의 레스토랑 코드를 여러 파일로 분리해 보겠습니다. 먼저, 모듈 트리를 다시 살펴보겠습니다:
 
-모듈(module)을 여러 파일(file)로 분리하면 다음과 같은 장점이 있습니다:
+```
+restaurant
+ ├── front_of_house
+ │   ├── hosting
+ │   │   └── add_to_waitlist
+ │   └── serving
+ │       └── take_order
+ └── back_of_house
+     ├── fix_incorrect_order
+     └── cook_order
+```
 
-1. 코드가 더 관리하기 쉬워집니다.
-2. 각 모듈(module)이 자체 파일(file)을 가지게 되어 코드를 더 쉽게 찾고 수정할 수 있습니다.
-3. 코드의 가독성이 향상됩니다.
-4. 팀 작업이 더 쉬워집니다.
+이 모듈 트리를 여러 파일로 분리하겠습니다:
 
-## 모듈(module)을 여러 파일(file)로 분리하는 방법
+1. 크레이트 루트 파일: _src/lib.rs_
+2. 프론트 오브 하우스 모듈: _src/front_of_house.rs_
+3. 프론트 오브 하우스의 호스팅 모듈: _src/front_of_house/hosting.rs_
+4. 프론트 오브 하우스의 서빙 모듈: _src/front_of_house/serving.rs_
+5. 백 오브 하우스 모듈: _src/back_of_house.rs_
 
-모듈(module)을 여러 파일(file)로 분리하려면 다음과 같은 단계를 따릅니다:
+먼저, _src/front_of_house.rs_ 파일을 생성하고 `front_of_house` 모듈의 내용을 이동시킵니다:
 
-1. 모듈(module)을 선언합니다.
-2. 모듈(module)의 내용을 별도의 파일(file)에 정의합니다.
-
-다음은 모듈(module)을 여러 파일(file)로 분리하는 예입니다:
+파일명: src/front_of_house.rs
 
 ```rust
-// src/lib.rs
-mod front_of_house;
+pub mod hosting;
+pub mod serving;
+```
 
-pub use crate::front_of_house::hosting;
+그런 다음, _src/front_of_house/hosting.rs_ 파일을 생성하고 `hosting` 모듈의 내용을 이동시킵니다:
 
-pub fn eat_at_restaurant() {
-    hosting::add_to_waitlist();
+파일명: src/front_of_house/hosting.rs
+
+```rust
+pub fn add_to_waitlist() {}
+```
+
+그리고 _src/front_of_house/serving.rs_ 파일을 생성하고 `serving` 모듈의 내용을 이동시킵니다:
+
+파일명: src/front_of_house/serving.rs
+
+```rust
+pub fn take_order() {}
+```
+
+그런 다음, _src/back_of_house.rs_ 파일을 생성하고 `back_of_house` 모듈의 내용을 이동시킵니다:
+
+파일명: src/back_of_house.rs
+
+```rust
+pub fn fix_incorrect_order() {
+    cook_order();
+    super::deliver_order();
 }
+
+fn cook_order() {}
 ```
+
+마지막으로, _src/lib.rs_ 파일을 수정하여 모듈 선언을 추가합니다:
+
+파일명: src/lib.rs
 
 ```rust
-// src/front_of_house.rs
-pub mod hosting {
-    pub fn add_to_waitlist() {}
-}
-```
-
-## 모듈(module) 트리(tree)와 파일(file) 구조
-
-모듈(module) 트리(tree)는 파일(file) 구조를 반영합니다. 예를 들어, 위의 예에서 모듈(module) 트리(tree)는 다음과 같습니다:
-
-```
-crate
- └── front_of_house
-     └── hosting
-         └── add_to_waitlist
-```
-
-이 구조는 파일(file) 구조와 일치합니다:
-
-```
-src
- ├── lib.rs
- └── front_of_house.rs
-```
-
-## 모듈(module)을 여러 파일(file)로 분리할 때 주의할 점
-
-모듈(module)을 여러 파일(file)로 분리할 때 주의할 점은 다음과 같습니다:
-
-1. 모듈(module)을 선언할 때 `mod` 키워드(keyword)를 사용합니다.
-2. 모듈(module)의 내용을 별도의 파일(file)에 정의할 때 파일(file) 이름은 모듈(module) 이름과 일치해야 합니다.
-3. 모듈(module)의 내용을 별도의 파일(file)에 정의할 때 파일(file)은 `src` 디렉토리(directory)에 있어야 합니다.
-
-## 모듈(module)을 여러 파일(file)로 분리하는 예
-
-다음은 모듈(module)을 여러 파일(file)로 분리하는 더 복잡한 예입니다:
-
-```rust
-// src/lib.rs
 mod front_of_house;
 mod back_of_house;
 
 pub use crate::front_of_house::hosting;
-pub use crate::back_of_house::serving;
 
 pub fn eat_at_restaurant() {
     hosting::add_to_waitlist();
-    serving::take_order();
 }
+
+fn deliver_order() {}
 ```
 
-```rust
-// src/front_of_house.rs
-pub mod hosting {
-    pub fn add_to_waitlist() {}
-}
-```
+이제 모듈이 여러 파일로 분리되었습니다. 이 구조에서는 각 모듈이 자체 파일에 있으며, 모듈 트리는 `mod` 선언으로 구성됩니다. 이렇게 하면 모듈이 커지더라도 코드를 더 쉽게 탐색할 수 있습니다.
 
-```rust
-// src/back_of_house.rs
-pub mod serving {
-    pub fn take_order() {}
-}
-```
+이 구조에서 `pub use crate::front_of_house::hosting;`는 `hosting` 모듈을 크레이트 루트로 재내보냅니다. 이렇게 하면 외부 코드에서 `restaurant::hosting::add_to_waitlist()`를 사용할 수 있습니다.
 
-이렇게 하면 각 모듈(module)이 자체 파일(file)을 가지게 되어 코드를 더 쉽게 관리할 수 있습니다.
+이 구조에서는 `mod` 키워드를 사용하여 모듈을 선언하고, `pub` 키워드를 사용하여 모듈을 공개하며, `use` 키워드를 사용하여 모듈을 스코프로 가져옵니다. 이렇게 하면 모듈 시스템을 사용하여 코드를 구성하고, 모듈 트리를 통해 항목을 참조할 수 있습니다.
+
+이제 모듈 시스템을 사용하여 코드를 구성하는 방법을 배웠습니다. 다음 장에서는 표준 라이브러리에서 사용할 수 있는 일부 컬렉션 데이터 구조를 살펴보겠습니다.
